@@ -1,0 +1,19 @@
+{
+  "id": "voiced-rolls",
+  "name": "voiced-rolls",
+  "title": "Voiced Rolls - An accesibility FVTT Module",
+  "description": "A module created for Foundry Virtual Tabletop framework to voice the dice rolls.",
+  "authors": [
+    {
+      "name": "Decimo Vulpes"
+    }
+  ],
+  "scripts": [
+    "scripts/main.js"
+  ],
+  "version": "0.0.1",
+  "compatibility": {
+    "minimum": "10",
+    "verified": "10"
+  }
+}
