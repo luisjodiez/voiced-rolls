@@ -34,7 +34,7 @@ Hooks.on('diceSoNiceRollStart', (nulo, doc) => {
   // Iterate and parse the full roll
   function parseRolls(roll) {
     roll.terms.forEach(parseTerms);
-    var total = "El total de la tirada es: " + roll.total;
+    var total = "Total: " + roll.total;
     var msg = new SpeechSynthesisUtterance(total);
     msg.lang = "es";
     window.speechSynthesis.speak(msg);
@@ -46,7 +46,7 @@ Hooks.on('diceSoNiceRollStart', (nulo, doc) => {
     group_score += item;
     group_text += item;
     if ((index + 1) == arr.length) {
-      var tirada = "Los dados D" + faces + " suman: " + group_score + ". \nLa puntuación individual es: " + group_text + "."
+      var tirada = "Tirada individual: " + group_text + "."
       var msg = new SpeechSynthesisUtterance(tirada);
       msg.lang = "es";
       window.speechSynthesis.speak(msg);
