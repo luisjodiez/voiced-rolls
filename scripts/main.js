@@ -33,22 +33,12 @@ Hooks.on('diceSoNiceRollStart', (nulo, doc) => {
 
   // Iterate and parse the full roll
   function parseRolls(roll) {
-    var formula = "La tirada realizada es: " + replaceOperators(roll.formula);
-    var msg = new SpeechSynthesisUtterance(formula);
-    msg.lang = "es";
-    window.speechSynthesis.speak(msg);
-    console.log(formula);
     roll.terms.forEach(parseTerms);
-    var result = "El resultado de la tirada es: " + replaceOperators(roll.result);
-    var msg = new SpeechSynthesisUtterance(result);
-    msg.lang = "es";
-    window.speechSynthesis.speak(msg);
-    console.log(result);
     var total = "El total de la tirada es: " + roll.total;
     var msg = new SpeechSynthesisUtterance(total);
     msg.lang = "es";
     window.speechSynthesis.speak(msg);
-    console.log(total);
+    // console.log(total);
   };
 
   // Parse each dice roll and process grouped output
@@ -60,7 +50,7 @@ Hooks.on('diceSoNiceRollStart', (nulo, doc) => {
       var msg = new SpeechSynthesisUtterance(tirada);
       msg.lang = "es";
       window.speechSynthesis.speak(msg);
-      console.log(tirada);
+      // console.log(tirada);
       group_score = 0;
       group_text = "";
     } else {
@@ -69,9 +59,9 @@ Hooks.on('diceSoNiceRollStart', (nulo, doc) => {
   };
 
   // Start the calls
-  console.log(doc);
-  console.log(doc.roll);
-  console.log(doc.roll.terms);
+  // console.log(doc);
+  // console.log(doc.roll);
+  // console.log(doc.roll.terms);
   parseRolls(doc.roll);
 
 });
