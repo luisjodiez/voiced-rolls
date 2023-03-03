@@ -9,11 +9,10 @@ TO-DO:
 
 */
 
-Hooks.on('renderChatMessage', (doc) => {
+Hooks.on('diceSoNiceRollStart', (nulo, doc) => {
   var faces = 0; // Dice number of faces
   var group_score = 0; // Score for the die grouped by faces
   var group_text = ""; // List of individual rolls for a group
-
 
   // Replace operators for the string to be read by text to speech (spanish hardcode)
   function replaceOperators(text) {
@@ -34,13 +33,13 @@ Hooks.on('renderChatMessage', (doc) => {
 
   // Iterate and parse the full roll
   function parseRolls(roll) {
-    var formula = "La tirada realizada es:" + replaceOperators(roll.formula);
+    var formula = "La tirada realizada es: " + replaceOperators(roll.formula);
     var msg = new SpeechSynthesisUtterance(formula);
     msg.lang = "es";
     window.speechSynthesis.speak(msg);
     console.log(formula);
     roll.terms.forEach(parseTerms);
-    var result = "El resultado de la tirada es:" + replaceOperators(roll.result);
+    var result = "El resultado de la tirada es: " + replaceOperators(roll.result);
     var msg = new SpeechSynthesisUtterance(result);
     msg.lang = "es";
     window.speechSynthesis.speak(msg);
@@ -57,7 +56,7 @@ Hooks.on('renderChatMessage', (doc) => {
     group_score += item;
     group_text += item;
     if ((index + 1) == arr.length) {
-      var tirada = "Los dados D" + faces + " suman: " + group_score + ". La puntuación individual es: " + group_text + "."
+      var tirada = "Los dados D" + faces + " suman: " + group_score + ". \nLa puntuación individual es: " + group_text + "."
       var msg = new SpeechSynthesisUtterance(tirada);
       msg.lang = "es";
       window.speechSynthesis.speak(msg);
@@ -70,6 +69,9 @@ Hooks.on('renderChatMessage', (doc) => {
   };
 
   // Start the calls
-  doc.rolls.forEach(parseRolls);
+  console.log(doc);
+  console.log(doc.roll);
+  console.log(doc.roll.terms);
+  parseRolls(doc.roll);
 
 });
