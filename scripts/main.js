@@ -1,7 +1,62 @@
+// Register module settings during initialization
+Hooks.once('init', () => {
+  game.settings.register("voiced-rolls", "language", {
+    name: "Speech Language",
+    hint: "The language to use for speech synthesis (e.g., 'en', 'es').",
+    scope: "client", // Each user can set their own value
+    config: true, // Show in the settings menu
+    type: String,
+    default: "es"
+  });
+
+  game.settings.register("voiced-rolls", "rate", {
+    name: "Speech Rate",
+    hint: "The rate of speech synthesis (e.g., 1.0 for normal speed).",
+    scope: "client",
+    config: true,
+    type: Number,
+    default: 1.5
+  });
+});
+
+// List of valid languages for speech synthesis
+const validLanguages = ["en", "es", "fr", "de", "it", "ja", "ko", "zh", "ru", "pt"];
+
+// Function to check if a language is valid
+function isValidLanguage(language) {
+  return validLanguages.includes(language);
+}
+
 Hooks.on('diceSoNiceRollStart', (nulo, doc) => {
-  var faces = 0; // Dice number of faces
-  var group_score = 0; // Score for the die grouped by faces
-  var group_text = ""; // List of individual rolls for a group
+  let faces = 0; // Dice number of faces
+  let group_score = 0; // Score for the die grouped by faces
+  let group_text = ""; // List of individual rolls for a group
+
+  // Fetch user-configured settings dynamically
+  const language = game.settings.get("voiced-rolls", "language");
+  const rate = game.settings.get("voiced-rolls", "rate");
+
+  // Validate settings dynamically
+  const validatedLanguage = isValidLanguage(language) ? language : "es";
+  const validatedRate = typeof rate === "number" && rate > 0 && rate <= 10 ? rate : 1.5;
+
+  if (language !== validatedLanguage) {
+    ui.notifications.warn("Invalid language setting. Falling back to default: 'es'.");
+    game.settings.set("voiced-rolls", "language", "es");
+  }
+
+  if (rate !== validatedRate) {
+    ui.notifications.warn("Invalid rate setting. Falling back to default: 1.5.");
+    game.settings.set("voiced-rolls", "rate", 1.5);
+  }
+
+  // Function to create and speak a message
+  function speakMessage(text) {
+    const msg = new SpeechSynthesisUtterance(text);
+    msg.lang = validatedLanguage;
+    msg.rate = validatedRate;
+    window.speechSynthesis.speak(msg);
+  }
 
   // Iterate and parse individual rolls
   function parseTerms(term) {
@@ -9,43 +64,32 @@ Hooks.on('diceSoNiceRollStart', (nulo, doc) => {
       faces = term.faces;
       if (term.values.length > 1) {
         term.values.forEach(parseIndividualRoll);
-      };
-    };
-  };
+      }
+    }
+  }
 
   // Iterate and parse the full roll
   function parseRolls(roll) {
+    if (!roll || !roll.terms) return; // Error handling for undefined roll
     roll.terms.forEach(parseTerms);
-    var total = "Total: " + roll.total;
-    var msg = new SpeechSynthesisUtterance(total);
-    msg.lang = "es";
-    msg.rate = 1.5;
-    window.speechSynthesis.speak(msg);
-    // console.log(total);
-  };
+    speakMessage("Total: " + roll.total);
+  }
 
   // Parse each dice roll and process grouped output
   function parseIndividualRoll(item, index, arr) {
     group_score += item;
     group_text += item;
-    if ((index + 1) == arr.length) {
-      var tirada = "Tirada individual: " + group_text + "."
-      var msg = new SpeechSynthesisUtterance(tirada);
-      msg.lang = "es";
-      msg.rate = 1.5;
-      window.speechSynthesis.speak(msg);
-      // console.log(tirada);
+    if (index + 1 === arr.length) {
+      speakMessage("Tirada individual: " + group_text + ".");
       group_score = 0;
       group_text = "";
     } else {
       group_text += ", ";
-    };
-  };
+    }
+  }
 
   // Start the calls
-  // console.log(doc);
-  // console.log(doc.roll);
-  // console.log(doc.roll.terms);
-  parseRolls(doc.roll);
-
+  if (doc && doc.roll) {
+    parseRolls(doc.roll);
+  }
 });
