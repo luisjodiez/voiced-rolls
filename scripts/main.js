@@ -42,25 +42,19 @@ Hooks.on('diceSoNiceRollStart', (nulo, doc) => {
 
   if (language !== validatedLanguage) {
     ui.notifications.warn("Invalid language setting. Falling back to default: 'es'.");
-    game.settings.set("voiced-rolls", "language", "es");
+    game.settings.set("voiced-rolls", "language", validatedLanguage);
   }
 
   if (rate !== validatedRate) {
-    ui.notifications.warn("Invalid rate setting. Falling back to default: 1.5.");
-    game.settings.set("voiced-rolls", "rate", 1.5);
+    ui.notifications.warn(`Invalid rate setting. Falling back to default: ${validatedRate}.`);
+    game.settings.set("voiced-rolls", "rate", validatedRate);
   }
 
   // Function to create and speak a message
   function speakMessage(text) {
     const msg = new SpeechSynthesisUtterance(text);
     msg.lang = validatedLanguage;
-  // Use settings directly; assume they are valid due to validation elsewhere
-
-  // Function to create and speak a message
-  function speakMessage(text) {
-    const msg = new SpeechSynthesisUtterance(text);
-    msg.lang = language;
-    msg.rate = rate;
+    msg.rate = validatedRate;
     window.speechSynthesis.speak(msg);
   }
 
