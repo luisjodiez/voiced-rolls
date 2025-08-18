@@ -54,7 +54,13 @@ Hooks.on('diceSoNiceRollStart', (nulo, doc) => {
   function speakMessage(text) {
     const msg = new SpeechSynthesisUtterance(text);
     msg.lang = validatedLanguage;
-    msg.rate = validatedRate;
+  // Use settings directly; assume they are valid due to validation elsewhere
+
+  // Function to create and speak a message
+  function speakMessage(text) {
+    const msg = new SpeechSynthesisUtterance(text);
+    msg.lang = language;
+    msg.rate = rate;
     window.speechSynthesis.speak(msg);
   }
 
