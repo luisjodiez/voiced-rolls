@@ -1,12 +1,11 @@
 import js from "@eslint/js";
 import globals from "globals";
-import { defineConfig, globalIgnores } from "eslint/config";
 
-export default defineConfig([
+export default [
   {
     files: ["**/*.{js,mjs,cjs}"],
     plugins: { js },
-    extends: ["js/recommended"],
+    ...js.configs.recommended, // Use recommended rules
     languageOptions: {
       globals: { ...globals.browser, ...globals.node }, // Support both browser and Node.js environments
       ecmaVersion: 12,
@@ -36,8 +35,10 @@ export default defineConfig([
       }
     }
   },
-  globalIgnores([
-    "**/node_modules/**",
-    "**/dist/**"
-  ])
-]);
+  {
+    ignores: [
+      "**/node_modules/**",
+      "**/dist/**"
+    ] // Replace globalIgnores with ignores property
+  }
+];
