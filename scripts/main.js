@@ -20,7 +20,7 @@ Hooks.on('diceSoNiceRollStart', (nulo, doc) => {
 
     // Validate settings dynamically
     const validatedLanguage = window.voicedRolls.isValidLanguage(language) ? language : "es";
-    const validatedRate = typeof rate === "number" && rate > 0 && rate <= 10 ? rate : 1.5;
+    const validatedRate = typeof rate === "number" && rate >= 0.1 && rate <= 10 ? rate : 1.5;
 
     if (language !== validatedLanguage) {
       ui.notifications.warn("Invalid language setting. Falling back to default: 'es'.");
