@@ -29,7 +29,8 @@ Hooks.on('diceSoNiceRollStart', (nulo, doc) => {
 
     if (rate !== validatedRate) {
       ui.notifications.warn("Invalid rate setting. Falling back to default: 1.5.");
-      game.settings.set("voiced-rolls", "rate", 1.5);
+      ui.notifications.warn(`Invalid rate setting. Falling back to default: ${DEFAULT_RATE}.`);
+      game.settings.set("voiced-rolls", "rate", DEFAULT_RATE);
     }
 
     // Iterate and parse individual rolls
