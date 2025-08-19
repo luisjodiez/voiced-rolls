@@ -8,7 +8,9 @@
     }
   ],
   "scripts": [
-    "scripts/main.js"
+    "scripts/main.js",
+    "scripts/settings.js",
+    "scripts/speech.js"
   ],
   "version": "0.0.2",
   "compatibility": {
