@@ -41,7 +41,7 @@ Hooks.on('diceSoNiceRollStart', (nulo, doc) => {
   const validatedRate = typeof rate === "number" && rate >= 0.1 && rate <= 10 ? rate : 1.5;
 
   if (language !== validatedLanguage) {
-    ui.notifications.warn("Invalid language setting. Falling back to default: 'es'.");
+    ui.notifications.warn(`Invalid language setting. Falling back to default: ${validatedLanguage}.`);
     game.settings.set("voiced-rolls", "language", validatedLanguage);
   }
 
