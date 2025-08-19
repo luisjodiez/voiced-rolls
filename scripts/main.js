@@ -1,3 +1,7 @@
+// Include constants directly for Foundry VTT compatibility
+const DEFAULT_RATE = 1.5; // Default speech rate
+const DEFAULT_LANGUAGE = 'es'; // Default language for speech synthesis
+
 console.log("main.js loaded");
 
 // Register module settings during initialization
@@ -23,12 +27,11 @@ Hooks.on('diceSoNiceRollStart', (nulo, doc) => {
     const validatedRate = typeof rate === "number" && rate >= 0.1 && rate <= 10 ? rate : 1.5;
 
     if (language !== validatedLanguage) {
-      ui.notifications.warn("Invalid language setting. Falling back to default: 'es'.");
-      game.settings.set("voiced-rolls", "language", "es");
+      ui.notifications.warn(`Invalid language setting. Falling back to default: ${DEFAULT_LANGUAGE}.`);
+      game.settings.set("voiced-rolls", "language", DEFAULT_LANGUAGE);
     }
 
     if (rate !== validatedRate) {
-      ui.notifications.warn("Invalid rate setting. Falling back to default: 1.5.");
       ui.notifications.warn(`Invalid rate setting. Falling back to default: ${DEFAULT_RATE}.`);
       game.settings.set("voiced-rolls", "rate", DEFAULT_RATE);
     }
