@@ -1,10 +1,12 @@
-// Register module settings
-function registerSettings() {
-  console.log("settings.js loaded");
+/**
+ * Register module settings
+ */
+export function registerSettings(): void {
+  console.log("settings.ts loaded");
 
   try {
     // Register the language setting
-    game.settings.register("voiced-rolls", "language", {
+    (game as any).settings.register("voiced-rolls", "language", {
       name: "Speech Language",
       hint: "The language to use for speech synthesis (e.g., 'en', 'es').",
       scope: "client", // Each user can set their own value
@@ -14,7 +16,7 @@ function registerSettings() {
     });
 
     // Register the speech rate setting
-    game.settings.register("voiced-rolls", "rate", {
+    (game as any).settings.register("voiced-rolls", "rate", {
       name: "Speech Rate",
       hint: "The rate of speech synthesis (e.g., 1.0 for normal speed).",
       scope: "client",
@@ -28,5 +30,5 @@ function registerSettings() {
 }
 
 // Export as a global variable
-window.voicedRolls = window.voicedRolls || {};
+window.voicedRolls = window.voicedRolls || {} as any;
 window.voicedRolls.registerSettings = registerSettings;

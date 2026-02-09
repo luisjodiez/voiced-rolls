@@ -1,44 +1,36 @@
 import js from "@eslint/js";
 import globals from "globals";
+import tseslint from "typescript-eslint";
 
-export default [
+export default tseslint.config(
+  js.configs.recommended,
+  ...tseslint.configs.recommended,
   {
-    files: ["**/*.{js,mjs,cjs}"],
-    plugins: { js },
-    ...js.configs.recommended, // Use recommended rules
     languageOptions: {
-      globals: { ...globals.browser, ...globals.node }, // Support both browser and Node.js environments
-      ecmaVersion: 12,
-      sourceType: "module" // Enable ES module syntax
+      globals: {
+        ...globals.browser,
+        ...globals.node,
+        ...globals.jest,
+        game: "readonly",
+        ui: "readonly",
+        Hooks: "readonly",
+      },
+      ecmaVersion: "latest",
+      sourceType: "module",
     },
     rules: {
       "no-unused-vars": "warn",
       "no-console": "off",
-      eqeqeq: "error",
-      curly: "error"
-    }
-  },
-  {
-    files: ["__tests__/**/*.js"],
-    languageOptions: {
-      globals: { ...globals.jest } // Add Jest globals for test files
-    }
-  },
-  {
-    files: ["scripts/**/*.js"],
-    languageOptions: {
-      globals: {
-        ...globals.browser,
-        game: true,
-        ui: true,
-        Hooks: true // Add Foundry VTT-specific globals
-      }
-    }
+      "eqeqeq": "error",
+      "curly": "error",
+      "@typescript-eslint/no-explicit-any": "off", // Allowed for Foundry VTT interactions
+    },
   },
   {
     ignores: [
       "**/node_modules/**",
-      "**/dist/**"
-    ] // Replace globalIgnores with ignores property
+      "**/dist/**",
+      "coverage/**",
+    ],
   }
-];
+);

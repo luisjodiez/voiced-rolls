@@ -1,6 +1,6 @@
-const { isValidLanguage, speakMessage } = require('../scripts/speech');
+import { isValidLanguage, speakMessage } from '../src/speech';
 
-describe('speech.js', () => {
+describe('speech.ts', () => {
   describe('isValidLanguage', () => {
     it('should return true for valid languages', () => {
       expect(isValidLanguage('en')).toBe(true);
@@ -15,10 +15,10 @@ describe('speech.js', () => {
 
   describe('speakMessage', () => {
     beforeEach(() => {
-      global.speechSynthesis = {
+      (global as any).speechSynthesis = {
         speak: jest.fn(),
       };
-      global.SpeechSynthesisUtterance = jest.fn().mockImplementation((text) => ({
+      (global as any).SpeechSynthesisUtterance = jest.fn().mockImplementation((text) => ({
         text,
         lang: '',
         rate: 1,
@@ -26,8 +26,8 @@ describe('speech.js', () => {
     });
 
     afterEach(() => {
-      delete global.speechSynthesis;
-      delete global.SpeechSynthesisUtterance;
+      delete (global as any).speechSynthesis;
+      delete (global as any).SpeechSynthesisUtterance;
     });
 
     it('should call speechSynthesis.speak with correct parameters', () => {
@@ -37,15 +37,15 @@ describe('speech.js', () => {
 
       speakMessage(text, language, rate);
 
-      expect(global.speechSynthesis.speak).toHaveBeenCalled();
-      const utterance = global.speechSynthesis.speak.mock.calls[0][0];
+      expect((global as any).speechSynthesis.speak).toHaveBeenCalled();
+      const utterance = (global as any).speechSynthesis.speak.mock.calls[0][0];
       expect(utterance.text).toBe(text);
       expect(utterance.lang).toBe(language);
       expect(utterance.rate).toBe(rate);
     });
 
     it('should warn if speechSynthesis is not supported', () => {
-      delete global.speechSynthesis;
+      delete (global as any).speechSynthesis;
       const consoleWarnSpy = jest.spyOn(console, 'warn').mockImplementation();
 
       speakMessage('Hello', 'en', 1.0);

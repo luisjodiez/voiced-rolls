@@ -1,39 +1,44 @@
 # voiced-rolls-module
+
 FoundryVTT Module for explicit voiced rolls
 
 ## Installation
-1. Visit the [GitHub page](https://github.com/luisjodiez/voiced-rolls).
-2. Click the green **Code** button and select **Download ZIP**.
-3. Extract the ZIP file to access the `voiced-rolls` folder.
-4. Copy the `voiced-rolls` folder.
-5. Navigate to your FoundryVTT installation directory.
-6. Open the `modules` folder inside your FoundryVTT directory.
-7. Paste the `voiced-rolls` folder into the `modules` directory.
-8. Launch FoundryVTT, open your game, and go to **Manage Modules** to enable **Voiced Rolls**.
+
+### Manifest URL
+
+To install the module using the Foundry VTT Setup menu, use the following Manifest URL:
+`https://github.com/luisjodiez/voiced-rolls/releases/latest/download/module.json`
+
+### Manual Installation
+
+1. Visit the [Releases page](https://github.com/luisjodiez/voiced-rolls/releases).
+2. Download the `module.zip` for the latest release.
+3. Extract the contents into your Foundry VTT `Data/modules/voiced-rolls` directory.
 
 ## Usage
+
 - This module voices dice rolls using the browser's speech synthesis API.
-  - In linux this only works out of the box with the Google Chrome browser.
 - Ensure your browser supports speech synthesis and has audio enabled.
+- **Note**: In Linux, this works most reliably with the Google Chrome browser.
 
 ## Configuration
-You can configure the module settings via the FoundryVTT settings menu:
+
+Settings can be adjusted in the **Module Settings** menu within Foundry VTT:
 
 ### Speech Language
-- **Description**: The language to use for speech synthesis.
+
 - **Default**: `es` (Spanish)
-- **Valid Options**: `en` (English), `es` (Spanish), `fr` (French), `de` (German), `it` (Italian), `ja` (Japanese), `ko` (Korean), `zh` (Chinese), `ru` (Russian), `pt` (Portuguese)
+- **Supported**: `en`, `es`, `fr`, `de`, `it`, `ja`, `ko`, `zh`, `ru`, `pt`.
 
 ### Speech Rate
-- **Description**: The rate of speech synthesis.
-- **Default**: `1.5`
-- **Valid Range**: `0.1` to `10`
 
-If invalid values are provided, the module will display a warning and fall back to the default settings.
+- **Default**: `1.5`
+- **Range**: `0.1` (slow) to `10` (very fast).
 
 ## Contributing
-- Fork the repository and create a new branch for your feature or fix.
-- Submit a pull request with a clear description of your changes.
+
+We welcome contributions! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
 
 ## License
+
 This project is licensed under the GNU General Public License v3.0. See the [LICENSE](https://github.com/luisjodiez/voiced-rolls/blob/master/LICENSE) file for details.

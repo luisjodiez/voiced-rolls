@@ -7,10 +7,8 @@
       "name": "Luisjo Diez"
     }
   ],
-  "scripts": [
-    "scripts/main.js",
-    "scripts/settings.js",
-    "scripts/speech.js"
+  "esmodules": [
+    "dist/main.js"
   ],
   "version": "0.0.2",
   "compatibility": {
