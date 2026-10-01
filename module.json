@@ -1,6 +1,6 @@
 {
   "id": "voiced-rolls",
-  "title": "Voiced Rolls - An accesibility FVTT Module",
+  "title": "Voiced Rolls - An accessibility FVTT Module",
   "description": "A module created for Foundry Virtual Tabletop framework to voice the dice rolls.",
   "authors": [
     {
@@ -8,9 +8,27 @@
     }
   ],
   "scripts": [
-    "scripts/main.js",
+    "scripts/speech.js",
     "scripts/settings.js",
-    "scripts/speech.js"
+    "scripts/adapters/baseAdapter.js",
+    "scripts/adapters/genericAdapter.js",
+    "scripts/adapters/dnd5eAdapter.js",
+    "scripts/adapters/cosmereAdapter.js",
+    "scripts/adapters/pbtaAdapter.js",
+    "scripts/parser.js",
+    "scripts/main.js"
+  ],
+  "languages": [
+    {
+      "lang": "es",
+      "name": "Español",
+      "path": "languages/es.json"
+    },
+    {
+      "lang": "en",
+      "name": "English",
+      "path": "languages/en.json"
+    }
   ],
   "version": "0.0.2",
   "compatibility": {
