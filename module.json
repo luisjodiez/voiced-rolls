@@ -30,7 +30,7 @@
       "path": "languages/en.json"
     }
   ],
-  "version": "0.0.2",
+  "version": "1.0.0",
   "compatibility": {
     "minimum": "10",
     "verified": "13"
