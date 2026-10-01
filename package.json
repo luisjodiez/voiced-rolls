@@ -1,16 +1,28 @@
 {
-  "devDependencies": {
-    "@eslint/js": "^9.33.0",
-    "@semantic-release/changelog": "^6.0.3",
-    "eslint": "^9.33.0",
-    "globals": "^16.3.0",
-    "jest": "^30.0.5",
-    "jest-environment-jsdom": "^30.0.5",
-    "semantic-release": "^24.2.7"
+  "name": "voiced-rolls",
+  "version": "1.0.0",
+  "description": "A Foundry VTT module that vocalizes dice rolls using the Web Speech API.",
+  "license": "GPL-3.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/luisjodiez/voiced-rolls.git"
+  },
+  "bugs": {
+    "url": "https://github.com/luisjodiez/voiced-rolls/issues"
   },
   "scripts": {
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "test": "jest"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.33.0",
+    "@semantic-release/changelog": "^6.0.3",
+    "@semantic-release/exec": "^6.0.3",
+    "eslint": "^9.33.0",
+    "globals": "^16.3.0",
+    "jest": "^30.0.5",
+    "jest-environment-jsdom": "^30.0.5",
+    "semantic-release": "^24.2.7"
   }
 }
